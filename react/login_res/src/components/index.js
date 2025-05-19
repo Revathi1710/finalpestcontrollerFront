@@ -35,7 +35,7 @@ class Index extends Component {
             <div className="container">
               <div className="row align-items-center justify-content-center hero-content-box">
                 <div className="col-md-7 text-white text-left mb-4">
-                  <h3 className="hero-heading">Non-Licenced Pest Control Companies Services are Dangerous Then Diseases Spreading Pest</h3>
+                  <h3 className="hero-heading">Non Licenced Pest Control Companies Services are Dangerous Then Diseases Spreading Pest</h3>
                 </div>
                 <div className="col-md-5">
                   <div className="">
@@ -53,7 +53,7 @@ class Index extends Component {
 
   <div className="">
     <h3 className="hero-heading">
-    Non-Licenced Pest Control Companies Services are Dangerous Then Diseases Spreading Pest
+    Non Licensed Pest Control Services are Dangerous Then Diseases Spreading Pest
     </h3>
     <div className="containerbox">
       <HomeForm />

@@ -1,6 +1,6 @@
 :root {
   --logo-color: #006ecf;
-  --btn-color: #d20000;
+  --btn-color:  #004AAD;
 }
 
 .logonameheader {
@@ -30,7 +30,7 @@ input:focus {
   border:1px solid #ffc3b9;
 }
 .headerbox-nav {
-  background:#015176 ;
+  background:white ;
 
 }
 .login-icon i {
@@ -118,15 +118,24 @@ input:focus {
   padding-left: 3rem !important;
   padding-right: 3rem !important;
 }
-.titlestyle{
-  color:#026936  !important;
-  padding: 10px;
-    background: #6bffc1;
-
+.titlestyle {
+  padding: 10px 50px;
+  background: #004AAD;
+  color: white !important;
+  border-radius: 20px;
+  line-height: 30px;
 }
 .titlestyle2{
   display:none;
 }
+
+  .headerbtn {
+    background: #004AAD !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    padding: 8px 30px !important;
+}
+
 /* Mobile-specific Styles */
 @media (max-width: 768px) {
   .logo-pest {

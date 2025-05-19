@@ -7,6 +7,7 @@ const HomeForm = () => {
     name: "",
     email: "",
     state: "",
+    city: "",
     pincode: "",
     number: "",
     businessType: "Residential"
@@ -26,6 +27,7 @@ const HomeForm = () => {
     if (!formData.name.trim()) newErrors.name = "Name is required.";
     if (!formData.email) newErrors.email = "Email is required.";
     if (!formData.state) newErrors.state = "State is required.";
+    if (!formData.city) newErrors.city = "City is required.";
     if (!/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Pincode must be 6 digits.";
     if (!/^\d{10}$/.test(formData.number)) newErrors.number = "Number must be 10 digits.";
     return newErrors;
@@ -45,6 +47,7 @@ const HomeForm = () => {
             name: result.user.name || "",
             email: result.user.email,
             state: result.user.state || "",
+            city: result.user.city || "",
             pincode: result.user.pincode || "",
             number: result.user.number || "",
             businessType: result.user.businessType || "Residential"
@@ -128,7 +131,7 @@ const HomeForm = () => {
     <div className="container">
       <div className="card shadow-lg border-0 rounded-4 px-4 py-4 formhome-container">
         <h5 className="text-center titlestyle fw-bold">
-          Find only government licensed pest control agencies at your pincode
+        Get Licenced Pest Control <br/>@ Your Pincode
         </h5>
         <form onSubmit={handleSubmit}>
           <div className="row g-3">
@@ -171,6 +174,18 @@ const HomeForm = () => {
               />
               {errors.state && <div className="invalid-feedback">{errors.state}</div>}
             </div>
+            <div className="col-md-6">
+              <label className="form-label">🌐 City</label>
+              <input
+                type="text"
+                name="city"
+                className={`inputhome form-control ${errors.city && "is-invalid"}`}
+                value={formData.city}
+                onChange={handleChange}
+                placeholder="Enter City"
+              />
+              {errors.city && <div className="invalid-feedback">{errors.city}</div>}
+            </div>
 
             <div className="col-md-6">
               <label className="form-label">📮 Pincode</label>
@@ -185,7 +200,7 @@ const HomeForm = () => {
               {errors.pincode && <div className="invalid-feedback">{errors.pincode}</div>}
             </div>
 
-            <div className="">
+            <div className="col-md-6">
               <label className="form-label">📞 Contact Number</label>
               <input
                 type="text"
@@ -229,8 +244,8 @@ const HomeForm = () => {
       
 
           <div className="mt-4">
-            <button type="submit" className="btn postbtn w-100 py-2 fs-5 rounded-pill">
-              🔍 Find Vendors
+            <button type="submit" className="btn searchhome-btn w-100 py-2 fs-5 rounded-pill">
+              🔍 Search
             </button>
           </div>
         </form>

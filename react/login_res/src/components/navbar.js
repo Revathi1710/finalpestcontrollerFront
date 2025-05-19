@@ -59,7 +59,7 @@ function Header() {
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <button className="btn postbtn">{userName}</button>
+            <button className="btn headerbtn">{userName}</button>
             {showDropdown && (
               <div className="dropdown-menu-custom">
                 {isVendor && (
@@ -71,7 +71,7 @@ function Header() {
           </div>
         ) : (
           <Link to="/Signup" className="login-icon">
-            <button className="btn postbtn">Login</button>
+            <button className="btn  headerbtn">Login</button>
           </Link>
         )}
       </div>
