@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+
 export default function SignUp() {
   const [formData, setFormData] = useState({
     businessName: "",
@@ -30,11 +31,78 @@ export default function SignUp() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value
+    const newValue = type === "checkbox" ? checked : value;
+  
+    // Update form data first
+    const updatedFormData = {
+      ...formData,
+      [name]: newValue,
+    };
+  
+    setFormData(updatedFormData);
+  
+    // Start validation logic
+    let error = "";
+  
+    switch (name) {
+      case "businessName":
+        if (!newValue.trim()) error = "Business name is required.";
+        break;
+  
+      case "email":
+        if (!newValue.trim()) error = "Email is required.";
+        break;
+  
+      case "pincode":
+        if (!/^\d{6}$/.test(newValue)) {
+          error = "Pincode must be 6 digits.";
+        }
+        break;
+  
+      case "contactNumber":
+        if (!/^\d{10}$/.test(newValue)) {
+          error = "Contact number must be 10 digits.";
+        }
+        break;
+  
+      case "password":
+      case "cpassword": {
+        const password = name === "password" ? newValue : updatedFormData.password;
+        const cpassword = name === "cpassword" ? newValue : updatedFormData.cpassword;
+  
+        if (!password || !cpassword) {
+          error = "Password and Confirm Password are required.";
+        } else if (password !== cpassword) {
+          error = "Passwords do not match.";
+        } else {
+          error = "";
+        }
+  
+        // Clear both errors
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          password: error,
+          match: "",
+        }));
+        return; // prevent the default error setter below
+      }
+  
+      case "declarationAccepted":
+        if (!newValue) {
+          error = "You must accept the declaration.";
+        }
+        break;
+  
+      default:
+        break;
+    }
+  
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
     }));
   };
+  
 
   const getCoordinatesFromPincode = async (pincode) => {
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -55,7 +123,16 @@ export default function SignUp() {
 
   const validate = () => {
     const newErrors = {};
-    const { businessName, email, pincode, contactNumber, password, cpassword, declarationAccepted } = formData;
+    const {
+      businessName,
+      email,
+      pincode,
+      contactNumber,
+      password,
+      cpassword,
+      declarationAccepted
+    } = formData;
+
     if (!businessName.trim()) newErrors.businessName = "Business name is required.";
     if (!email.trim()) newErrors.email = "Email is required.";
     if (!/^\d{6}$/.test(pincode)) newErrors.pincode = "Pincode must be 6 digits.";
@@ -63,6 +140,7 @@ export default function SignUp() {
     if (!password || !cpassword) newErrors.password = "Password and Confirm Password are required.";
     if (password !== cpassword) newErrors.match = "Passwords do not match.";
     if (!declarationAccepted) newErrors.declaration = "You must accept the declaration.";
+
     return newErrors;
   };
 
@@ -299,7 +377,11 @@ export default function SignUp() {
                   onChange={handleChange}
                   required
                 /></div>
-                  {errors.match && <div className="text-danger mb-2">{errors.match}</div>}
+                    {(errors.password || errors.match) && (
+                <div className="text-danger mb-2">
+                  {errors.password || errors.match}
+                </div>
+              )}
               </div></div>
               <div className="form-check mb-3">
                 <input className="form-check-input" type="checkbox" name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleChange} />
